@@ -16,7 +16,7 @@ class MakeProductTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->string('description', 255);
+            $table->longText('description');
             $table->decimal('price', 10, 2);
             $table->longText('image')->nullable();
             $table->integer('id_product_category');
