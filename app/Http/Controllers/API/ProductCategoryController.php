@@ -40,7 +40,7 @@ class ProductCategoryController extends Controller
         if (empty($id)) {
             $product_categories = ProductCategory::all();
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'Product categories read',
                 'data' => $product_categories,
             ];
@@ -49,7 +49,7 @@ class ProductCategoryController extends Controller
             $product_category = ProductCategory::find($id);
             if ($product_category) {
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'Product category read',
                     'data' => $product_category,
                 ];
@@ -85,7 +85,7 @@ class ProductCategoryController extends Controller
             if ($product_category) {
                 $product_category->update($request->all());
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'Product category updated',
                     'data' => $product_category,
                 ];
@@ -107,7 +107,7 @@ class ProductCategoryController extends Controller
         if ($product_category) {
             $product_category->delete();
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'Product category deleted',
                 'data' => [],
             ];
