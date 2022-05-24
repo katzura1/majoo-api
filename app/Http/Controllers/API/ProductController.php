@@ -128,7 +128,7 @@ class ProductController extends Controller
         }
     }
 
-    public function upload_photo(Request $request)
+    public function upload_photo(Request $request, $id)
     {
         $data_validator = [
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -143,17 +143,41 @@ class ProductController extends Controller
                 'data' => [],
             ];
         } else {
-            $image = $request->file('photo');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $response = [
-                'code' => 201,
-                'message' => 'Photo uploaded',
-                'data' => [
-                    'photo' => '/images/' . $name,
-                ],
-            ];
+            $product = Product::find($id);
+            if ($product) {
+
+                $old_photo = $product->image;
+
+                $image = $request->file('photo');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images');
+                $image->move($destinationPath, $name);
+
+                $product->image = $name;
+                $product->save();
+
+                if (!empty($old_photo)) {
+                    $old_photo_path = public_path($old_photo);
+                    if (file_exists($old_photo_path)) {
+                        unlink($old_photo_path);
+                    }
+                }
+
+                $response = [
+                    'code' => 201,
+                    'message' => 'Photo uploaded',
+                    'data' => [
+                        'id' => $product->id,
+                        'photo' => '/images/' . $name,
+                    ],
+                ];
+            } else {
+                $response = [
+                    'code' => 404,
+                    'message' => 'Product not found',
+                    'data' => [],
+                ];
+            }
         }
         return response()->json($response, 200);
     }
