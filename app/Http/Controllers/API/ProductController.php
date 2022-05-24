@@ -153,7 +153,7 @@ class ProductController extends Controller
                 $destinationPath = public_path('/images');
                 $image->move($destinationPath, $name);
 
-                $product->image = $name;
+                $product->image = '/images/' . $name;
                 $product->save();
 
                 if (!empty($old_photo)) {
