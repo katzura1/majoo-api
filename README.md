@@ -4,5 +4,5 @@ With Laravel Framework.
 
 please run this, before running the application
 
-php artisan migrate:fresh --seed
-# majoo-api
+create database with name majoo_test
+and run this command "php artisan migrate:fresh --seed"
