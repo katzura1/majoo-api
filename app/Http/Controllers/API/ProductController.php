@@ -43,7 +43,7 @@ class ProductController extends Controller
         if (empty($id)) {
             $products = Product::all()->load('productCategory');
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'Products read',
                 'data' => $products,
             ];
@@ -52,7 +52,7 @@ class ProductController extends Controller
             $product = Product::find($id)->load('productCategory');
             if ($product) {
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'Product read',
                     'data' => $product,
                 ];
@@ -91,7 +91,7 @@ class ProductController extends Controller
             if ($product) {
                 $product->update($request->all());
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'Product updated',
                     'data' => $product,
                 ];
@@ -113,7 +113,7 @@ class ProductController extends Controller
         if ($product) {
             $product->delete();
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'Product deleted',
                 'data' => [],
             ];
@@ -148,7 +148,7 @@ class ProductController extends Controller
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $name);
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'Photo uploaded',
                 'data' => [
                     'photo' => '/images/' . $name,

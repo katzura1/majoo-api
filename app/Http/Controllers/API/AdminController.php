@@ -43,7 +43,7 @@ class AdminController extends Controller
         if (empty($id)) {
             $admins = Admin::all();
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'Admins read',
                 'data' => $admins,
             ];
@@ -52,7 +52,7 @@ class AdminController extends Controller
             $admin = Admin::find($id);
             if ($admin) {
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'User read',
                     'data' => $admin,
                 ];
@@ -88,7 +88,7 @@ class AdminController extends Controller
             } else {
                 $admin->update($request->all());
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'User updated',
                     'data' => $admin,
                 ];
@@ -123,7 +123,7 @@ class AdminController extends Controller
             } else {
                 $admin->update(['password' => password_hash($request['password'], PASSWORD_DEFAULT)]);
                 $response = [
-                    'code' => 200,
+                    'code' => 201,
                     'message' => 'User password updated',
                     'data' => $admin,
                 ];
@@ -144,7 +144,7 @@ class AdminController extends Controller
         if ($admin) {
             $admin->delete();
             $response = [
-                'code' => 200,
+                'code' => 201,
                 'message' => 'User deleted',
                 'data' => [],
             ];
@@ -178,7 +178,7 @@ class AdminController extends Controller
             if ($admin) {
                 if (password_verify($request['password'], $admin->password)) {
                     $response = [
-                        'code' => 200,
+                        'code' => 201,
                         'message' => 'User logged in',
                         'data' => $admin,
                     ];
